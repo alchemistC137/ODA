@@ -1,5 +1,6 @@
 # ODA
 <img width="752" height="752" alt="ODA_logo" src="https://github.com/user-attachments/assets/db973786-d3d7-4c33-8897-f58ae6c89cfd" />
+
 # ODA - Open Decentralized Access
 
 ## Resumen Ejecutivo del Proyecto
