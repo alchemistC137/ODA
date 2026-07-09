@@ -3,25 +3,11 @@
 
 # ODA - Open Decentralized Access
 
-## Resumen Ejecutivo del Proyecto
-
 ODA es un **sistema de login universal descentralizado** que permite a los usuarios acceder a cualquier servicio web sin depender de intermediarios centralizados (Google, Facebook, Apple). El usuario es el **único propietario de su identidad digital** y de sus datos de acceso.
 
 ---
 
-## 🎯 Objetivo del Proyecto
-
-Desarrollar un **sistema de autenticación descentralizado** que:
-
-1. Permita un login universal para todos los servicios
-2. Elimine la dependencia de proveedores centralizados
-3. Devuelva el control de la identidad al usuario
-4. Sea de código abierto y auditable
-5. Proporcione mecanismos robustos de auditoría y seguridad
-
----
-
-## 🏗️ Arquitectura Técnica de ODA
+## Arquitectura Técnica de ODA
 
 ### Componentes Principales
 
@@ -36,15 +22,6 @@ Desarrollar un **sistema de autenticación descentralizado** que:
 
 ---
 
-## 🔐 El Flujo de Autenticación
-
-### Registro de Identidad (Única vez)
-
-1. El usuario genera un par de claves en su wallet
-2. La wallet crea un **DID (Identificador Descentralizado)**
-3. El DID se registra en el servidor `did:webvh`
-4. El hash del registro se ancla en la blockchain (opcional)
-
 ### Acceso a un Sitio Web (Cada vez)
 
 1. Usuario visita un sitio con ODA y hace clic en "Acceder con ODA"
@@ -53,16 +30,7 @@ Desarrollar un **sistema de autenticación descentralizado** que:
 4. El servidor **resuelve el DID** del usuario y verifica la firma
 5. Si es válido, el servidor concede acceso y genera un token de sesión
 
-### Verificación de Credenciales (Acceso restringido)
-
-1. El sitio web puede solicitar una **Credencial Verificable** (ej: "mayor de edad")
-2. La wallet presenta la credencial usando **Pruebas de Conocimiento Cero (ZKP)**
-3. El servidor verifica la credencial sin acceder a datos personales
-4. El usuario obtiene acceso al contenido restringido
-
----
-
-## 🗂️ El Registro `did.jsonl` (Identidad)
+## El Registro `did.jsonl` (Identidad)
 
 El archivo `did.jsonl` es el **corazón técnico** de la identidad del usuario.
 
@@ -90,24 +58,11 @@ Cada entrada (entry) en el `did.jsonl` contiene:
 
 ---
 
-## 🔒 Seguridad de ODA
-
-### Protección de la Clave Privada
-
-| Capa | Medida | Tecnología |
-|------|--------|------------|
-| **Prevención** | Cifrado de la wallet | AES-256 + PBKDF2 |
-| **Prevención** | Aislamiento por hardware | Secure Enclave / StrongBox |
-| **Prevención** | Autenticación biométrica | Huella / Rostro |
-| **Respuesta** | Rotación de claves | Actualización sin cambiar DID |
-| **Respuesta** | Recuperación por guardianes | Shamir Secret Sharing |
-| **Respuesta** | Copias de seguridad cifradas | Almacenamiento en cloud |
-
 ### Gestión de Múltiples Dispositivos
 
 1. El dispositivo principal genera un token de autorización
 2. El nuevo dispositivo genera su propio par de claves
-3. El principal aprueba la vinculación
+3. El dispositivo principal aprueba la vinculación
 4. El DID Document se actualiza con la nueva clave pública
 5. **Revocación**: Se puede revocar un dispositivo perdido desde otro
 
@@ -121,21 +76,3 @@ Cada entrada (entry) en el `did.jsonl` contiene:
 | **Shamir Secret Sharing** | Fragmentos de clave entre guardianes | Alta |
 
 ---
-
-## 📊 Auditoría y Logs
-
-### Logs de Acceso (En el Dispositivo del Usuario)
-
-Los logs se almacenan **cifrados y firmados** en el dispositivo del usuario:
-
-```json
-{
-  "did": "did:webvh:example.com:user123",
-  "servicio": "https://ejemplo.com/recurso",
-  "timestamp": "2026-06-29T10:30:00Z",
-  "accion": "login",
-  "resultado": "exitoso",
-  "hash_anterior": "abc123...",
-  "firma_servidor": "0x456def...",
-  "firma_usuario": "0x789ghi..."
-}
